@@ -10,12 +10,12 @@ We starten de applicatie en openen de browser op http://localhost:3000
     npm start
 
 ### Login 
-<!-- ![Home Page](image-home.png) -->
+[Home Page](image-home.png)
 
 ---
 Op deze pagina kunnen we inloggen met behulp van Auth0
 
-<!-- ![Login Page](image-login.png) -->
+[Login Page](image-login.png)
 
 --- 
 
