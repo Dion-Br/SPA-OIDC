@@ -12,7 +12,6 @@ We starten de applicatie en openen de browser op http://localhost:3000
     npm start
 
 ### Login 
----
 <!-- ![Home Page](image-home.png) -->
 
 ---
