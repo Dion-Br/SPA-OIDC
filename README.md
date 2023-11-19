@@ -2,11 +2,9 @@
 *Auteur: Dion Brovina*
 
 ## Intro
----
 Een SPA waarin we kunnen aanmelden en onszelf authoriseren. We kunnen op deze applicatie inloggen, daarbij krijgen we meer informatie te zien. Als we uitloggen verdwijnt deze informatie die ons werd toevertrouwd weer.
 
 ## Uitwerking
----
 We starten de applicatie en openen de browser op http://localhost:3000
 
     npm start
