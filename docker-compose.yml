@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+
+  opa:
+    image: openpolicyagent/opa:latest
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./path/to/your/policies:/policies
+    command:
+      - "run"
+      - "--server"
+      - "--addr=:8181"
+      - "--set=plugins.environment.opa.env.OPA_POLICIES_PATH=/policies"
