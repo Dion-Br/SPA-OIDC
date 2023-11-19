@@ -1,0 +1,3 @@
+node_modules/*
+old_server.js
+public/js/old-app.js
