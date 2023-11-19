@@ -1,3 +1,4 @@
 node_modules/*
-old_server.js
+old-server.js
 public/js/old-app.js
+.env

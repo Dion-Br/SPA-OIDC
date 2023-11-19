@@ -13,9 +13,9 @@ app.get('/*', (_, res) => {
 
 // OIDC configuration
 const oidcConfig = {
-    authority: 'https://dev-nwrnemwv5k4qzw0m.us.auth0.com',
-    client_id: 'AguPJO5FklsMz75dYqVcVngnbKo7nnPB',
-    redirect_uri: 'http://localhost:3000/', // Specify your callback URL
+    authority: process.env.AUTHORITY,
+    client_id: process.env.CLIENT_ID,
+    redirect_uri: 'http://localhost:3000/', 
     response_type: 'code',
     scope: 'openid profile',
 };
@@ -28,8 +28,8 @@ const validateAccessToken = (req, res, next) => {
         return res.status(401).json({ error: 'Unauthorized: Access token missing' });
     }
 
-    const jwksUrl = 'https://dev-nwrnemwv5k4qzw0m.us.auth0.com/.well-known/jwks.json';
-    const audience = 'AguPJO5FklsMz75dYqVcVngnbKo7nnPB';
+    const jwksUrl = process.env.JWKS_URL;
+    const audience = process.env.CLIENT_ID;
 
     const options = { algorithms: ['RS256'], audience };
 

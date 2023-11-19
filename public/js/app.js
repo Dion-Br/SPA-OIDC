@@ -1,7 +1,5 @@
 let oidcClient = null;
 
-const fetchAuthConfig = () => fetch("/auth_config.json");
-
 const configureClient = async () => {
     // OIDC configuration
     const oidcConfig = {
@@ -10,6 +8,14 @@ const configureClient = async () => {
         redirect_uri: window.location.origin,
         response_type: 'code',
         scope: 'openid profile',
+        metadata: {
+            "authorization_endpoint": "https://dev-nwrnemwv5k4qzw0m.us.auth0.com/authorize",
+            "end_session_endpoint": "https://dev-nwrnemwv5k4qzw0m.us.auth0.com/logout?client_id=AguPJO5FklsMz75dYqVcVngnbKo7nnPB&returnTo=http://localhost:3000/",
+            "issuer": "https://dev-nwrnemwv5k4qzw0m.us.auth0.com/",
+            "jwks_uri": "https://dev-nwrnemwv5k4qzw0m.us.auth0.com/.well-known/jwks.json",
+            "userinfo_endpoint": "https://dev-nwrnemwv5k4qzw0m.us.auth0.com/userinfo",
+            "token_endpoint": "https://dev-nwrnemwv5k4qzw0m.us.auth0.com/oauth/token"
+        }
     };
 
     oidcClient = new Oidc.UserManager(oidcConfig);
@@ -20,7 +26,7 @@ window.onload = async () => {
 
     updateUI();
 
-    // Check for the code and state parameters
+    // Check for the token and state parameters
     const query = window.location.search;
     if (query.includes("code=") && query.includes("state=")) {
 
@@ -66,5 +72,4 @@ const login = async () => {
 const logout = async () => {
     // Redirect the user to the OIDC provider for logout
     await oidcClient.signoutRedirect();
-    updateUI();
 };
