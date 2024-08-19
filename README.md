@@ -5,6 +5,10 @@
 Een SPA waarin we kunnen aanmelden en onszelf authoriseren. We kunnen op deze applicatie inloggen, daarbij krijgen we meer informatie te zien. Als we uitloggen verdwijnt deze informatie die ons werd toevertrouwd weer.
 
 ## Threat Model
+![IMG](threatmodel.png)
+
+Onze applicatie bevat veel onderdelen die gecompromiseerd kunnen worden, het gaat hier vooral om fouten van Administrators, deze kunnen bijvoorbeeld te veel rechten geven aan iemand (express of per ongeluk). Auth0 wordt niet door ons beheerd maar zou ook niet kunnen werken waardoor onze applicatie niet zou werken, hier kunnen we wel snel wisselen van authenticator.
+
 
 ## Uitwerking
 We starten de applicatie en openen de browser op http://localhost:3000
