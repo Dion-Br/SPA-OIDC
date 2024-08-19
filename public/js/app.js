@@ -73,3 +73,38 @@ const logout = async () => {
     // Redirect the user to the OIDC provider for logout
     await oidcClient.signoutRedirect();
 };
+
+const testAdmin = async () => {
+    if(canUserDelete() == true){
+        console.log("u have rights")
+    }
+    else {
+        console.log("u dont have the rights")
+    }
+}
+
+async function canUserDelete() {
+
+    const isAuthenticatedOIDC = await oidcClient.getUser();
+    if (isAuthenticatedOIDC) {
+        const user = await oidcClient.getUser();
+        const authInfo = JSON.stringify(user);
+        console.log(authInfo);
+
+        // Query OPA
+        const response = await fetch('http://localhost:8181/v1/data/authz/allow_delete', {
+            method: "post",
+            headers: {
+                 "Content-Type": "application/json",
+                 'Access-Control-Allow-Origin': '*',
+            },
+            input: authInfo
+        });
+            
+        const result = await response;
+            
+        return result;
+    }
+    
+    return false
+}

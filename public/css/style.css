@@ -11,7 +11,6 @@
     word-wrap: break-word;
     word-break: break-word;
     width: 500px;
-    height: 500px;
 }
 
 label {
@@ -41,10 +40,6 @@ body {
 
 .box h2 {
     margin: 40px 0;
-    height: 150px;
-}
-
-.box p {
     height: 50px;
 }
 
@@ -61,4 +56,9 @@ body {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+}
+
+#gated-content { 
+    margin-top: 30px;
+    width: 100%;
 }

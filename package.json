@@ -2,6 +2,7 @@
   "name": "opdracht-3",
   "version": "1.0.0",
   "description": "",
+  "proxy": "http://localhost:8181",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -13,7 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.1.2",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "http-proxy-middleware": "^3.0.0",
     "jsonwebtoken": "^9.0.2",
     "jwks-rsa": "^3.1.0"
   },

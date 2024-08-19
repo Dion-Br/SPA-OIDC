@@ -1,14 +1,7 @@
-package policy
+package authz
 
-default allow = false
+default allow_delete = false
 
-allow {
-    input.token.valid
-    input.request.method == "GET"
-}
-
-allow {
-    input.token.valid
-    input.request.method == "POST"
-    input.request.path = ["api", "resource"]
+allow_delete {
+    input.profile.nickname == "test"
 }

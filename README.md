@@ -4,18 +4,20 @@
 ## Intro
 Een SPA waarin we kunnen aanmelden en onszelf authoriseren. We kunnen op deze applicatie inloggen, daarbij krijgen we meer informatie te zien. Als we uitloggen verdwijnt deze informatie die ons werd toevertrouwd weer.
 
+## Threat Model
+
 ## Uitwerking
 We starten de applicatie en openen de browser op http://localhost:3000
 
-    npm start
+    docker compose up --build
 
 ### Login 
-[Home Page](image-home.png)
+![Home Page](image-home.png)
 
 ---
 Op deze pagina kunnen we inloggen met behulp van Auth0
 
-[Login Page](image-login.png)
+![Login Page](image-login.png)
 
 --- 
 
@@ -75,29 +77,27 @@ De docker compose file zet de OPA policy op en de applicatie
         ports:
         - "8181:8181"
         volumes:
-        - ./path/to/your/policies:/policies
+        - ./policy.rego:/config/policy.rego
         command:
         - "run"
         - "--server"
         - "--addr=:8181"
-        - "--set=plugins.environment.opa.env.OPA_POLICIES_PATH=/policies"
+        - "/config/policy.rego"
 ---
 
-    package policy
+    package authz
 
-    default allow = false
+    default allow_delete = false
 
-    allow {
-        input.token.valid
-        input.request.method == "GET"
+    allow_delete {
+        input.profile.nickname == "test"
     }
 
-    allow {
-        input.token.valid
-        input.request.method == "POST"
-        input.request.path = ["api", "resource"]
-    }
+In onze policy.rego staan de regels die zullen bepalen of de gebruiker word toegelaten om een item te verwijderen. In dit voorbeeld kan enkel een gebruiker met de naam test een item verwijderen bijvoorbeeld. Het uitvoeren van de volledige code loopt mis omdat ik het CORS probleem niet op tijd krijg opgelost. Maar via een postman request kunnen we zien dat de gebruiker test wel de actie mag uitvoeren maar een andere gebruiker niet.
+
+![Image](img-req.png)
+![Image](img-req2.png)
 
 ## Conclusie
 ---
-We hebben een SPA applicatie gemaakt die gebruik maakt van Auth0 door middel van OIDC, dit maakt de code veel flexibeler. We kunnen elk moment wisselen van identity provider door enkele variabelen te verandern in .env files. De applicatie controleert welke gebruikers zijn ingelogd en een administrator kan via Auth0 meer rechten geven aan gebruikers.
+We hebben een SPA applicatie gemaakt die gebruik maakt van Auth0 door middel van OIDC, dit maakt de code veel flexibeler. We kunnen elk moment wisselen van identity provider door enkele variabelen te verandern in .env files. De applicatie controleert welke gebruikers zijn ingelogd en een administrator kan via Auth0 meer rechten geven aan gebruikers. Als gerbuikers de juiste naam hebben in mijn voorbeeld kunnen ze de derde knop gebruiken omdat dit word gecontroleerd door de Open Policy Agent alhoewel ik dit niet werkende heb gekregen.
